@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <mat-card>
+    <mat-card-header class="d-block">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-card-title>
+            <h4>Budget Details</h4>
+          </mat-card-title>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row pb-3">
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-md-6">Name</label>
+            <label class="col-md-6">: {{budgetDetail?.name}}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-md-6">First Month</label>
+            <label class="col-md-6">: {{budgetDetail?.first_month | date : 'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-md-6">Last Month</label>
+            <label class="col-md-6">: {{budgetDetail?.last_month | date : 'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-md-6">Last Modified on</label>
+            <label class="col-md-6">: {{budgetDetail?.last_modified_on | date : 'MM/dd/yyyy'}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Accounts</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Acount</th>
+                  <th>Balance</th>
+                  <th>Clear Balance</th>
+                  <th>Acount Type</th>
+                  <th>Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of budgetDetail?.accounts">
+                  <td>{{item.name}}</td>
+                  <td>
+                    <span *ngIf="budgetDetail?.currency_format?.display_symbol">
+                      {{budgetDetail?.currency_format?.currency_symbol}}
+                    </span>
+                    {{item.balance}}
+                  </td>
+                  <td>
+                    <span *ngIf="budgetDetail?.currency_format?.display_symbol">
+                      {{budgetDetail?.currency_format?.currency_symbol}}
+                    </span>
+                    {{item.cleared_balance}}
+                  </td>
+                  <td>{{item.type}}</td>
+                  <td>{{item.note || '-'}}</td>
+                </tr>
+                <tr *ngIf="!budgetDetail?.accounts?.length">
+                  <td colspan="4">
+                    {{ errMsg || 'No Acount available' }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

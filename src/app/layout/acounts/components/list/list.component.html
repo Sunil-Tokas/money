@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <mat-card>
+    <mat-card-header class="d-block">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-card-title>
+            <h4>Accounts</h4>
+          </mat-card-title>
+        </div>
+        <div class="col-md-6 text-right">
+          <button mat-raised-button color="primary" (click)="createAcount()">Create Account</button>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Acount</th>
+              <th>Balance</th>
+              <th>Clear Balance</th>
+              <th>Acount Type</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of acountList?.accounts">
+              <td>{{item.name}}</td>
+              <td>
+                <span *ngIf="acountList?.currency_format?.display_symbol">
+                  {{acountList?.currency_format?.currency_symbol}}
+                </span>
+                {{item.balance}}
+              </td>
+              <td>
+                <span *ngIf="acountList?.currency_format?.display_symbol">
+                  {{acountList?.currency_format?.currency_symbol}}
+                </span>
+                {{item.cleared_balance}}
+              </td>
+              <td>{{item.type}}</td>
+              <td>{{item.note || '-'}}</td>
+            </tr>
+            <tr *ngIf="!acountList?.accounts?.length">
+              <td colspan="4">
+                {{ errMsg || 'No Acount available' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
